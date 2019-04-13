@@ -3,3 +3,6 @@ HouseClicker_Unity/Library
 HouseClicker_Unity/Logs
 HouseClicker_Unity/Packages
 HouseClicker_Unity/Temp
+HouseClicker_Unity/obj
+*.csproj
+*.sln
