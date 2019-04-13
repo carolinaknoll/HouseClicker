@@ -1,2 +1,2 @@
 # HouseClicker
-Cookie Clicker game being developed with C# and Unity.
+Clicker game being developed with C# and Unity.
