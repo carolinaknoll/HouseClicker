@@ -26,7 +26,7 @@ public class RepairPointsCalculatorTests
     [Test]
     [TestCase(-1)]
     [TestCase(-999)]
-    public void CalculateRepairPoints_SetAmountOfClicksNegative_ThrowsExceptions(int amountOfClicks)
+    public void CalculateRepairPoints_SetAmountOfClicksNegative_ThrowsArgumentOutOfRangeException(int amountOfClicks)
     {
         Assert.Throws<ArgumentOutOfRangeException>(() => repairPointsCalculator.CalculateRepairPoints(amountOfClicks));
     }
