@@ -21,7 +21,6 @@ public class HouseView : MonoBehaviour
             {
                 _totalRepairPoints += 0.01f;
 
-                Debug.LogError("Wololo");
                 HouseSlider.value += 0.01f;
 
                 TotalRepairPointsText.text = string.Format("{0:#0.00}", _totalRepairPoints);
