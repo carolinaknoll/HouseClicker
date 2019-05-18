@@ -5,11 +5,11 @@ using TMPro;
 
 public class HouseView : MonoBehaviour
 {
-    public RawImage HouseRawImage;
-    public Button HouseButton;
-    public Slider HouseSlider;
+    [SerializeField] private RawImage HouseRawImage = null;
+    [SerializeField] private Button HouseButton = null;
+    [SerializeField] private Slider HouseSlider = null;
 
-    public TextMeshProUGUI TotalRepairPointsText;
+    [SerializeField] private TextMeshProUGUI TotalRepairPointsText = null;
 
     private float _totalRepairPoints;
 
@@ -19,9 +19,9 @@ public class HouseView : MonoBehaviour
             .OnClickAsObservable()
             .Subscribe(_ => 
             {
-                _totalRepairPoints += 0.01f;
+                _totalRepairPoints += 0.1f;
 
-                HouseSlider.value += 0.01f;
+                HouseSlider.value += 0.1f;
 
                 TotalRepairPointsText.text = string.Format("{0:#0.00}", _totalRepairPoints);
             });
