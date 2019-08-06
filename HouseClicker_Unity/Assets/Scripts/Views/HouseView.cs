@@ -19,11 +19,24 @@ public class HouseView : MonoBehaviour
             .OnClickAsObservable()
             .Subscribe(_ => 
             {
-                _totalRepairPoints += 0.1f;
-
-                HouseSlider.value += 0.1f;
-
-                TotalRepairPointsText.text = string.Format("{0:#0.00}", _totalRepairPoints);
+                DoHouseClick();
             });
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            DoHouseClick();
+        }
+    }
+
+    private void DoHouseClick()
+    {
+        _totalRepairPoints += 0.1f;
+
+        HouseSlider.value += 0.1f;
+
+        TotalRepairPointsText.text = string.Format("{0:#0.00}", _totalRepairPoints);
     }
 }
