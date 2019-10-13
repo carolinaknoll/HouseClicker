@@ -15,6 +15,12 @@ public class HouseView : MonoBehaviour
 
     public void Start()
     {
+        Color houseRawImageColor =  HouseRawImage.color;
+        houseRawImageColor.a = 1f;
+        HouseRawImage.color = houseRawImageColor;
+        HouseRawImage.CrossFadeAlpha(0, 0f, true);
+        HouseRawImage.CrossFadeAlpha(1, 1f, true);
+
         HouseButton
             .OnClickAsObservable()
             .Subscribe(_ => 

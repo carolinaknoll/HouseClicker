@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuView : MonoBehaviour
 {
-    [SerializeField] private Button _startButton;
-    [SerializeField] private Button _exitButton;
+    [SerializeField] private Button _startButton = null;
+    [SerializeField] private Button _exitButton = null;
 
     private void Start()
     {
