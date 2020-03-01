@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UniRx;
 using TMPro;
+using System;
 
 public class HouseView : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class HouseView : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI TotalRepairPointsText = null;
 
-    private float _totalRepairPoints;
+    private float _normalizedRepairPoint;
 
     public void Start()
     {
@@ -25,24 +26,59 @@ public class HouseView : MonoBehaviour
             .OnClickAsObservable()
             .Subscribe(_ => 
             {
-                DoHouseClick();
+                IncreaseRepairPoints();
             });
+
+        EnableClick();
     }
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (HouseButton.interactable && Input.GetKeyDown(KeyCode.Space))
         {
-            DoHouseClick();
+            IncreaseRepairPoints();
         }
     }
 
-    private void DoHouseClick()
+    private void TryToFinishRepair()
     {
-        _totalRepairPoints += 0.1f;
+        if (_normalizedRepairPoint >= 1f)
+        {
+            DisableClick();
 
-        HouseSlider.value += 0.1f;
+            Observable.Timer(TimeSpan.FromSeconds(1))
+                .DoOnCompleted(() =>
+                {
+                    _normalizedRepairPoint = 0f;
+                    UpdateRepairPointUi();
+                    EnableClick();
+                })
+                .Subscribe();
+        }
+    }
 
-        TotalRepairPointsText.text = string.Format("{0:#0.00}", _totalRepairPoints);
+    private void EnableClick()
+    {
+        HouseButton.interactable = true;
+    }
+
+    private void DisableClick()
+    {
+        HouseButton.interactable = false;
+    }
+
+    private void IncreaseRepairPoints()
+    {
+        _normalizedRepairPoint += 0.1f;
+
+        UpdateRepairPointUi();
+
+        TryToFinishRepair(); 
+    }
+
+    private void UpdateRepairPointUi()
+    {
+        HouseSlider.value = _normalizedRepairPoint;
+        TotalRepairPointsText.text = string.Format("{0:#0.00}", _normalizedRepairPoint);
     }
 }
