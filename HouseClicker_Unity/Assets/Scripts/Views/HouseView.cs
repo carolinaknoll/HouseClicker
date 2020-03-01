@@ -24,10 +24,7 @@ public class HouseView : MonoBehaviour
 
         HouseButton
             .OnClickAsObservable()
-            .Subscribe(_ => 
-            {
-                IncreaseRepairPoints();
-            });
+            .Subscribe(_ => IncreaseRepairPoints());
 
         EnableClick();
     }
@@ -37,23 +34,6 @@ public class HouseView : MonoBehaviour
         if (HouseButton.interactable && Input.GetKeyDown(KeyCode.Space))
         {
             IncreaseRepairPoints();
-        }
-    }
-
-    private void TryToFinishRepair()
-    {
-        if (_normalizedRepairPoint >= 1f)
-        {
-            DisableClick();
-
-            Observable.Timer(TimeSpan.FromSeconds(1))
-                .DoOnCompleted(() =>
-                {
-                    _normalizedRepairPoint = 0f;
-                    UpdateRepairPointUi();
-                    EnableClick();
-                })
-                .Subscribe();
         }
     }
 
@@ -74,6 +54,23 @@ public class HouseView : MonoBehaviour
         UpdateRepairPointUi();
 
         TryToFinishRepair(); 
+    }
+
+    private void TryToFinishRepair()
+    {
+        if (_normalizedRepairPoint >= 1f)
+        {
+            DisableClick();
+
+            Observable.Timer(TimeSpan.FromSeconds(1))
+                .DoOnCompleted(() =>
+                {
+                    _normalizedRepairPoint = 0f;
+                    UpdateRepairPointUi();
+                    EnableClick();
+                })
+                .Subscribe();
+        }
     }
 
     private void UpdateRepairPointUi()
